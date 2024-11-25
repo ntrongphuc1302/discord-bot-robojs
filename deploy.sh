@@ -4,8 +4,8 @@
 LOCAL_PATH=$(pwd)                          # Current directory (assuming deploy.sh is in the project root)
 PROJECT_NAME=$(basename "$LOCAL_PATH")     # Extract project name from the root folder name
 RPI_USER="peter"                           # Raspberry Pi username
-RPI_HOST="peterpi.local"                   # Raspberry Pi hostname or IP address
-RPI_PATH="/home/peter/$PROJECT_NAME/"      # Path on Raspberry Pi to deploy the project
+RPI_HOST="petekserver.ddns.net"            # Raspberry Pi hostname or IP address
+RPI_PATH="/home/$RPI_USER/$PROJECT_NAME/"  # Path on Raspberry Pi to deploy the project
 
 # Build the project (if necessary)
 echo "Preparing Node.js project..."
@@ -101,7 +101,7 @@ ssh $RPI_USER@$RPI_HOST << EOF
         ./build.sh
     fi
 
-    echo "Starting Node.js application with PM2 using npm run dev..."
+    echo "Starting Node.js application with PM2 using 'npm run dev'..."
     pm2 start npm --name $PROJECT_NAME -- run dev
 
     echo "Saving PM2 process list and setting up PM2 to restart on reboot..."
